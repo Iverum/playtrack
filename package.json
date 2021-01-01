@@ -1,0 +1,18 @@
+{
+  "author": "Blake Hair <blake.hair@gmail.com>",
+  "bin": {
+    "playtrack": "./index.js"
+  },
+  "description": "Small CLI utility to track what games you've played",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "playtrack",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.0",
+  "dependencies": {
+    "meow": "^8.1.0",
+    "sqlite3": "^5.0.0"
+  }
+}
