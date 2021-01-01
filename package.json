@@ -12,6 +12,7 @@
   },
   "version": "0.1.0",
   "dependencies": {
+    "columnify": "^1.5.4",
     "meow": "^8.1.0",
     "sqlite3": "^5.0.0"
   }

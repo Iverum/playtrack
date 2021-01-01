@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const meow = require('meow');
+const columnify = require('columnify');
 const fs = require('fs');
 const sql = require('sqlite3').verbose();
 const homedir = require('os').homedir();
@@ -17,12 +18,16 @@ const CREATE_TABLE = `
     updatedAt TEXT NOT NULL DEFAULT (datetime('now'))
   );
 `;
-const INSERT_GAME = `INSERT INTO games (name) VALUES (?)`;
+const INSERT_GAME = `
+  INSERT INTO games (name) VALUES (?)
+  ON CONFLICT(name) DO UPDATE SET updatedAt=datetime('now');
+`;
+const GET_GAMES = `SELECT name, createdAt, updatedAt FROM games`
 let db = null;
 
 const cli = meow(`
   Usage
-    $ playtrack <cmd> <args>
+    $ playtrack track <game>
 `);
 
 function setup() {
@@ -40,12 +45,32 @@ function trackGame(name) {
   }
 
   db.run(INSERT_GAME, [name]);
+  console.log(`Tracked play of ${name}`);
+}
+
+function listGames() {
+  const games = [];
+  db.each(GET_GAMES, (err, row) => {
+    if (err) {
+      return;
+    }
+    games.push({ "first played": row.createdAt, "last played": row.updatedAt, name: row.name});
+  }, (err) => {
+    if (err) {
+      console.log("Something went wrong.");
+    } else {
+      console.log(columnify(games, { columns: ["name", "first played", "last played"]}));
+    }
+  });
 }
 
 function handleCommand(input, flags) {
   setup();
   switch (input[0]) {
-    case "track": 
+    case "list":
+      listGames();
+      break;
+    case "track":
       trackGame(input.slice(1).join(" "));
       break;
     default:
