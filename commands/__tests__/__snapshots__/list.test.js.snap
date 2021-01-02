@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns game results 1`] = `
+"NAME         FIRST PLAYED        LAST PLAYED        
+Metal Gear   2021-01-02 00:23:34 2021-01-02 00:23:34
+Metal Gear 2 2021-01-02 00:23:34 2021-01-02 00:23:34"
+`;
