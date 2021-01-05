@@ -6,6 +6,7 @@
   "dependencies": {
     "columnify": "^1.5.4",
     "meow": "^8.1.0",
+    "moment": "^2.29.1",
     "sqlite3": "^5.0.0"
   },
   "description": "Small CLI utility to track what games you've played",

@@ -8,8 +8,8 @@ const CREATE_TABLE = `
     name TEXT NOT NULL UNIQUE,
     playtime INTEGER NOT NULL DEFAULT 0,
     completed INTEGER(1) NOT NULL DEFAULT 0,
-    createdAt TEXT NOT NULL DEFAULT (datetime('now')),
-    updatedAt TEXT NOT NULL DEFAULT (datetime('now'))
+    createdAt INTEGER NOT NULL DEFAULT (strftime('%s','now')),
+    updatedAt INTEGER NOT NULL DEFAULT (strftime('%s','now'))
   );
 `;
 
