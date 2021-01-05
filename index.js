@@ -4,8 +4,16 @@ const meow = require('meow');
 const runCommand = require('./commands/run');
 
 const cli = meow(`
-  Usage
+  Add games to tracking:
     $ playtrack track <game>
+    $ playtrack add <game>
+
+  Remove games from tracking:
+    $ playtrack untrack <game>
+    $ playtrack delete <game>
+
+  List games:
+    $ playtrack list
 `);
 
 async function handleCommand(input) {
