@@ -10,7 +10,7 @@ beforeEach(async () => {
 
 test('fails when no db is provided', async () => {
   const response = await track(null, "Chip's Challenge");
-  expect(response).toEqual('Could not find location to write to.');
+  expect(response).toEqual('Could not find database.');
 });
 
 test('fails when no game is provided', async () => {

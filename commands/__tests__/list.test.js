@@ -10,7 +10,7 @@ beforeEach(async () => {
 
 test('fails when no db is provided', async () => {
   const response = await list(null);
-  expect(response).toEqual('No games found.');
+  expect(response).toEqual('Could not find database.');
 });
 
 test('fails when no games are found', async () => {

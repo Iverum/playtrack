@@ -5,7 +5,7 @@ const INSERT_GAME = `
 
 async function trackGame(db, name) {
   if (!db) {
-    return 'Could not find location to write to.';
+    return 'Could not find database.';
   }
 
   if (!name) {

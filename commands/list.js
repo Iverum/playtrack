@@ -15,7 +15,7 @@ function formatTimestamp(ts) {
 
 async function listGames(db) {
   if (!db) {
-    return 'No games found.';
+    return 'Could not find database.';
   }
 
   const results = await db.query(GET_GAMES);
