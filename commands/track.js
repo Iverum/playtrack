@@ -1,7 +1,7 @@
 const moment = require('moment');
 
 const INSERT_GAME = `
-  INSERT INTO games (name, createdAt) VALUES ($name, $timestamp)
+  INSERT INTO games (name, createdAt, updatedAt) VALUES ($name, $timestamp, $timestamp)
   ON CONFLICT(name) DO UPDATE SET updatedAt=$timestamp;
 `;
 

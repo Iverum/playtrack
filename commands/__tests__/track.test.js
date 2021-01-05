@@ -38,8 +38,9 @@ test('updates a game on conflict', async () => {
 test('creates a game at the given timestamp when given a time flag', async () => {
   const response = await track(db, "Chip's Challenge", { setTime: '2012-07-05' });
   expect(response).toEqual("Tracked play of Chip's Challenge");
-  const game = await db.get('SELECT createdAt FROM games WHERE name = ?', ["Chip's Challenge"]);
+  const game = await db.get('SELECT createdAt, updatedAt FROM games WHERE name = ?', ["Chip's Challenge"]);
   expect(game.createdAt).toBe(parseInt(moment('2012-07-05').format('X'), 10));
+  expect(game.updatedAt).toBe(parseInt(moment('2012-07-05').format('X'), 10));
 });
 
 test('creates a game with the given timestamp when given a time flag and conflicts', async () => {
