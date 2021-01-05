@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+const moment = require('moment');
 const Database = require('../../db');
 const track = require('../track');
 
@@ -32,4 +33,20 @@ test('updates a game on conflict', async () => {
   expect(response).toEqual("Tracked play of Chip's Challenge");
   response = await track(db, "Chip's Challenge");
   expect(response).toEqual("Tracked play of Chip's Challenge");
+});
+
+test('creates a game at the given timestamp when given a time flag', async () => {
+  const response = await track(db, "Chip's Challenge", { setTime: '2012-07-05' });
+  expect(response).toEqual("Tracked play of Chip's Challenge");
+  const game = await db.get('SELECT createdAt FROM games WHERE name = ?', ["Chip's Challenge"]);
+  expect(game.createdAt).toBe(parseInt(moment('2012-07-05').format('X'), 10));
+});
+
+test('creates a game with the given timestamp when given a time flag and conflicts', async () => {
+  let response = await track(db, "Chip's Challenge");
+  expect(response).toEqual("Tracked play of Chip's Challenge");
+  response = await track(db, "Chip's Challenge", { setTime: '2012-07-05' });
+  expect(response).toEqual("Tracked play of Chip's Challenge");
+  const game = await db.get('SELECT updatedAt FROM games WHERE name = ?', ["Chip's Challenge"]);
+  expect(game.updatedAt).toBe(parseInt(moment('2012-07-05').format('X'), 10));
 });

@@ -1,9 +1,19 @@
+const moment = require('moment');
+
 const INSERT_GAME = `
-  INSERT INTO games (name) VALUES (?)
-  ON CONFLICT(name) DO UPDATE SET updatedAt=datetime('now');
+  INSERT INTO games (name, createdAt) VALUES ($name, $timestamp)
+  ON CONFLICT(name) DO UPDATE SET updatedAt=$timestamp;
 `;
 
-async function trackGame(db, name) {
+function getTimestamp(date) {
+  if (!date) {
+    return parseInt(moment().format('X'), 10);
+  }
+
+  return parseInt(moment(date).format('X'), 10);
+}
+
+async function trackGame(db, name, flags = {}) {
   if (!db) {
     return 'Could not find database.';
   }
@@ -12,7 +22,8 @@ async function trackGame(db, name) {
     return 'Please provide a game name to track.';
   }
 
-  await db.run(INSERT_GAME, [name]);
+  const timestamp = getTimestamp(flags.setTime);
+  await db.run(INSERT_GAME, { $name: name, $timestamp: timestamp });
   return `Tracked play of ${name}`;
 }
 

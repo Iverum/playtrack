@@ -9,14 +9,14 @@ async function connect() {
   return db;
 }
 
-async function handleCommand(input) {
+async function handleCommand(input, flags) {
   const gameName = input.slice(1).join(' ');
   const db = await connect();
   let response = null;
   switch (input[0]) {
     case 'add':
     case 'track':
-      response = await trackGame(db, gameName);
+      response = await trackGame(db, gameName, flags);
       break;
     case 'delete':
     case 'untrack':

@@ -14,10 +14,19 @@ const cli = meow(`
 
   List games:
     $ playtrack list
-`);
+`, {
+  booleanDefault: undefined,
+  flags: {
+    setTime: {
+      alias: 't',
+      default: undefined,
+      type: 'string',
+    },
+  },
+});
 
-async function handleCommand(input) {
-  const response = await runCommand(input);
+async function handleCommand(input, flags) {
+  const response = await runCommand(input, flags);
   if (!response) {
     console.log(cli.help);
   } else {
