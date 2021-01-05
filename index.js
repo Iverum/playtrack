@@ -8,6 +8,10 @@ const cli = meow(`
     $ playtrack track <game>
     $ playtrack add <game>
 
+    Options
+      --setTime, -t
+      Provide an ISO8601 formatted date to set the first played date on creation or the last played date on update
+
   Remove games from tracking:
     $ playtrack untrack <game>
     $ playtrack delete <game>
@@ -19,7 +23,7 @@ const cli = meow(`
   flags: {
     setTime: {
       alias: 't',
-      default: undefined,
+      default: '',
       type: 'string',
     },
   },
