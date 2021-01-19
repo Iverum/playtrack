@@ -15,6 +15,9 @@ const cli = meow(`
       --complete, -c
       Mark a game as completed
 
+  Mark a game as complete:
+    $ playtrack complete <game>
+
   Remove games from tracking:
     $ playtrack untrack <game>
     $ playtrack delete <game>

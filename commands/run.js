@@ -2,6 +2,7 @@ const Database = require('../db');
 const trackGame = require('./track');
 const untrackGame = require('./untrack');
 const listGames = require('./list');
+const completeGame = require('./complete');
 
 async function connect() {
   const db = new Database();
@@ -17,6 +18,9 @@ async function handleCommand(input, flags) {
     case 'add':
     case 'track':
       response = await trackGame(db, gameName, flags);
+      break;
+    case 'complete':
+      response = await completeGame(db, gameName);
       break;
     case 'delete':
     case 'untrack':
