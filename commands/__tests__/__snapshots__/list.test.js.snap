@@ -5,3 +5,8 @@ exports[`returns game results 1`] = `
 Metal Gear                     a few seconds ago              a few seconds ago              ✗                             
 Metal Gear 2                   a few seconds ago              a few seconds ago              ✓                             "
 `;
+
+exports[`returns only completed game results 1`] = `
+"NAME                           FIRST PLAYED                   LAST PLAYED                    COMPLETED                     
+Metal Gear 2                   a few seconds ago              a few seconds ago              ✓                             "
+`;

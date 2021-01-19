@@ -26,3 +26,12 @@ test('returns game results', async () => {
   const response = await list(db);
   expect(response).toMatchSnapshot();
 });
+
+test('returns only completed game results', async () => {
+  await db.run(`
+    INSERT INTO games (name, completed)
+    VALUES ("Metal Gear", 0), ("Metal Gear 2", 1);
+  `);
+  const response = await list(db, { completed: true });
+  expect(response).toMatchSnapshot();
+});

@@ -2,6 +2,7 @@ const columnify = require('columnify');
 const moment = require('moment');
 
 const GET_GAMES = 'SELECT name, createdAt, updatedAt, completed FROM games';
+const GET_COMPLETED_GAMES = 'SELECT name, createdAt, updatedAt, completed FROM games WHERE completed = 1';
 
 function formatTimestamp(ts) {
   const today = moment();
@@ -13,12 +14,13 @@ function formatTimestamp(ts) {
   return date.format('MMMM Do YYYY');
 }
 
-async function listGames(db) {
+async function listGames(db, flags = {}) {
   if (!db) {
     return 'Could not find database.';
   }
 
-  const results = await db.query(GET_GAMES);
+  const query = flags.completed ? GET_COMPLETED_GAMES : GET_GAMES;
+  const results = await db.query(query);
   if (results.length <= 0) {
     return 'No games found.';
   }

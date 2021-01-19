@@ -24,6 +24,10 @@ const cli = meow(`
 
   List games:
     $ playtrack list
+
+    Options
+      --complete, -c
+      List only completed games
 `, {
   booleanDefault: undefined,
   flags: {
