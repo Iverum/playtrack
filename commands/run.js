@@ -27,7 +27,7 @@ async function handleCommand(input, flags) {
       response = await untrackGame(db, gameName);
       break;
     case 'list':
-      response = listGames(db);
+      response = listGames(db, flags);
       break;
     default:
       break;
