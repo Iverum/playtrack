@@ -1,7 +1,7 @@
 const columnify = require('columnify');
 const moment = require('moment');
 
-const GET_GAMES = 'SELECT name, createdAt, updatedAt FROM games';
+const GET_GAMES = 'SELECT name, createdAt, updatedAt, completed FROM games';
 
 function formatTimestamp(ts) {
   const today = moment();
@@ -24,11 +24,12 @@ async function listGames(db) {
   }
 
   const games = results.map((r) => ({
+    completed: r.completed ? '\u2713' : '\u2717',
     'first played': formatTimestamp(r.createdAt),
     'last played': formatTimestamp(r.updatedAt),
     name: r.name,
   }));
-  return columnify(games, { columns: ['name', 'first played', 'last played'], minWidth: 30 });
+  return columnify(games, { columns: ['name', 'first played', 'last played', 'completed'], minWidth: 30 });
 }
 
 module.exports = listGames;

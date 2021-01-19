@@ -20,8 +20,8 @@ test('fails when no games are found', async () => {
 
 test('returns game results', async () => {
   await db.run(`
-    INSERT INTO games (name)
-    VALUES ("Metal Gear"), ("Metal Gear 2");
+    INSERT INTO games (name, completed)
+    VALUES ("Metal Gear", 0), ("Metal Gear 2", 1);
   `);
   const response = await list(db);
   expect(response).toMatchSnapshot();

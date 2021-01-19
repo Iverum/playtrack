@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`returns game results 1`] = `
-"NAME                           FIRST PLAYED                   LAST PLAYED                   
-Metal Gear                     a few seconds ago              a few seconds ago             
-Metal Gear 2                   a few seconds ago              a few seconds ago             "
+"NAME                           FIRST PLAYED                   LAST PLAYED                    COMPLETED                     
+Metal Gear                     a few seconds ago              a few seconds ago              ✗                             
+Metal Gear 2                   a few seconds ago              a few seconds ago              ✓                             "
 `;
