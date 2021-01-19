@@ -51,3 +51,10 @@ test('creates a game with the given timestamp when given a time flag and conflic
   const game = await db.get('SELECT updatedAt FROM games WHERE name = ?', ["Chip's Challenge"]);
   expect(game.updatedAt).toBe(parseInt(moment('2012-07-05').format('X'), 10));
 });
+
+test('marks a game as completed', async () => {
+  const response = await track(db, "Chip's Challenge", { completed: true });
+  expect(response).toEqual("Completed Chip's Challenge");
+  const game = await db.get('SELECT completed FROM games WHERE name = ?', ["Chip's Challenge"]);
+  expect(game.completed).toEqual(1);
+});

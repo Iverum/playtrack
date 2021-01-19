@@ -1,8 +1,8 @@
 const moment = require('moment');
 
 const INSERT_GAME = `
-  INSERT INTO games (name, createdAt, updatedAt) VALUES ($name, $timestamp, $timestamp)
-  ON CONFLICT(name) DO UPDATE SET updatedAt=$timestamp;
+  INSERT INTO games (name, completed, createdAt, updatedAt) VALUES ($name, $completed, $timestamp, $timestamp)
+  ON CONFLICT(name) DO UPDATE SET updatedAt=$timestamp, completed=$completed;
 `;
 
 function getTimestamp(date) {
@@ -23,8 +23,9 @@ async function trackGame(db, name, flags = {}) {
   }
 
   const timestamp = getTimestamp(flags.setTime);
-  await db.run(INSERT_GAME, { $name: name, $timestamp: timestamp });
-  return `Tracked play of ${name}`;
+  const completed = flags.completed || false;
+  await db.run(INSERT_GAME, { $name: name, $timestamp: timestamp, $completed: completed });
+  return completed ? `Completed ${name}` : `Tracked play of ${name}`;
 }
 
 module.exports = trackGame;

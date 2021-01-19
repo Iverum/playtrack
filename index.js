@@ -12,6 +12,9 @@ const cli = meow(`
       --setTime, -t
       Provide an ISO8601 formatted date to set the first played date on creation or the last played date on update
 
+      --complete, -c
+      Mark a game as completed
+
   Remove games from tracking:
     $ playtrack untrack <game>
     $ playtrack delete <game>
@@ -21,6 +24,11 @@ const cli = meow(`
 `, {
   booleanDefault: undefined,
   flags: {
+    completed: {
+      alias: 'c',
+      default: false,
+      type: 'boolean',
+    },
     setTime: {
       alias: 't',
       default: '',
